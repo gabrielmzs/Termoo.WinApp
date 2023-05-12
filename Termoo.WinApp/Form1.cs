@@ -41,31 +41,38 @@ namespace Termoo.WinApp {
         private void ConfirmarPalpite(object? sender, EventArgs e) {
             if(palpiteAnalise.Length == 5) { // verificação para só enviar quando estiver a palavra completa
 
-            TableLayoutPanel linha = SelecionarLinha(posicaoLinha);
-            linha.Enabled = false;
+                TableLayoutPanel linha = SelecionarLinha(posicaoLinha);
+                linha.Enabled = false;
 
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 5; i++) {  //passa para letra por letra para a classe do jogo analisar
                     TextBox txtBox = SelecionarTxtBox(i, linha);
-                    int resultado = jogo.AnalisarPalpite(txtBox.Text,i);
+                    int resultado = jogo.AnalisarPalpite(txtBox.Text, i);
                     DarDicas(txtBox, resultado);
                 }
 
-                if (jogo.VerificarVitoria(palpiteAnalise)) {
-                    MessageBox.Show("Você Venceu! Ok para jogar novamente.");
-                    ReiniciarTabela();
-                    jogo = new JogoTermo();
-                }
+                AnalisarResultado();
 
-               else {posicaoLinha++;
-                    posicaoLetra = 0;
-                }
-
-                if(posicaoLinha > 5) {
-                    MessageBox.Show("Você Perdeu! Ok para jogar novamente.");
-                    ReiniciarTabela();
-                    jogo = new JogoTermo();
-                }
             }
+        }
+
+        private void AnalisarResultado() {
+            if (jogo.VerificarVitoria(palpiteAnalise)) NovoJogo("Você Venceu! Ok para jogar novamente.");
+            else {
+                posicaoLinha++;
+                posicaoLetra = 0;
+            }
+
+            if (VerificarDerrota()) NovoJogo("Você Perdeu! Ok para jogar novamente.");
+        }
+
+        private bool VerificarDerrota() {
+            return (posicaoLinha > 5);
+        }
+
+        private void NovoJogo(string mensagem) {
+            MessageBox.Show(mensagem);
+            ReiniciarTabela();
+            jogo = new JogoTermo();
         }
 
         private void DarDicas(TextBox txtBox, int resultado) {
