@@ -39,7 +39,7 @@ namespace Termoo.WinApp {
         }
 
         private void ConfirmarPalpite(object? sender, EventArgs e) {
-            if(palpiteAnalise.Length == 5) { 
+            if(palpiteAnalise.Length == 5) { // verificação para só enviar quando estiver a palavra completa
 
             TableLayoutPanel linha = SelecionarLinha(posicaoLinha);
             linha.Enabled = false;
@@ -85,21 +85,29 @@ namespace Termoo.WinApp {
                         botao.BackColor = Color.FromArgb(58, 163, 148);
                         
                         break;  
-
-
             }
         }
 
         private void ExcluirLetra(object? sender, EventArgs e) {
-            textBox1.Text = "";
+            
+            if(posicaoLetra > 0) {
+            TableLayoutPanel linha = SelecionarLinha(posicaoLinha);
+            posicaoLetra--;
+            TextBox txtBox = SelecionarTxtBox(posicaoLetra, linha);
+            txtBox.Text = "";
+            }
+
         }
 
         private void InputarLetra(object? sender, EventArgs e) {  //adiciona o text do btn ao txtbox com base na posicao, comeca em zero e vai somando
 
-            if(posicaoLetra < 5) { 
+            if(posicaoLetra < 5) { //verificação para parar de inputar quando ja estiver 5 palavras em tela
+
             Button botaoClicado = (Button)sender;
             string palpite = Convert.ToString(botaoClicado.Text[0]);
+
             palpiteAnalise[posicaoLetra] = Convert.ToChar(palpite);
+
             TableLayoutPanel linha = SelecionarLinha(posicaoLinha);
             TextBox txtBox = SelecionarTxtBox(posicaoLetra,linha);
             txtBox.Text = palpite;
@@ -115,17 +123,15 @@ namespace Termoo.WinApp {
                     return textBox;
                 }
             }
-
             return null;
         }
 
-        private TableLayoutPanel SelecionarLinha(int tabIndex) {  //analisa todos os txtbox na linha, seleciona pelo tabIndex e retorna
+        private TableLayoutPanel SelecionarLinha(int tabIndex) {  //analisa todas as linhas no painel, seleciona pelo tabIndex e retorna
             foreach (TableLayoutPanel linha in panel2.Controls) {
                 if (linha.TabIndex == tabIndex) {
                     return linha;
                 }
             }
-
             return null;
         }
 
@@ -150,7 +156,8 @@ namespace Termoo.WinApp {
 
         }
 
-        private void ReiniciarTabela() {
+        private void ReiniciarTabela() { //reinicia as cores e os enables dos botos e das txtboxes e volta o jogo para a primeira linha primeira posicao
+
             foreach (TableLayoutPanel linha in panel2.Controls) {
                 linha.Enabled = true;
                 foreach (TextBox textBox in linha.Controls) {
