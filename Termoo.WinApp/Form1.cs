@@ -39,7 +39,7 @@ namespace Termoo.WinApp {
         }
 
         private void ConfirmarPalpite(object? sender, EventArgs e) {
-            if(palpiteAnalise.Length == 5) { // verificação para só enviar quando estiver a palavra completa
+            if (TodasLetrasImputadas()) { // verificação para só enviar quando estiver a palavra completa
 
                 TableLayoutPanel linha = SelecionarLinha(posicaoLinha);
                 linha.Enabled = false;
@@ -53,6 +53,10 @@ namespace Termoo.WinApp {
                 AnalisarResultado();
 
             }
+        }
+
+        private bool TodasLetrasImputadas() {
+            return palpiteAnalise[0] != '\0' && palpiteAnalise[1] != '\0' && palpiteAnalise[2] != '\0' && palpiteAnalise[3] != '\0' && palpiteAnalise[4] != '\0';
         }
 
         private void AnalisarResultado() {
@@ -76,6 +80,7 @@ namespace Termoo.WinApp {
         }
 
         private void DarDicas(TextBox txtBox, int resultado) {
+
             Button botao = SelecionarBotao(txtBox.Text);
 
             switch (resultado) {
