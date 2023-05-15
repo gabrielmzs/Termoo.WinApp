@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,26 +21,11 @@ namespace Termoo.WinApp {
         }
 
         protected static string ObterPalavraSecreta() {
-            string[] palavras = {
-             "ACIDO", "ADIAR", "IMPAR", "ALGAR", "AMADO", "AMIGO", "ANEXO", "ANUIR", "AONDE", "APELO",
-             "AQUEM", "ARGIL", "ARROZ", "ASSAR", "ATRAS", "AVIDO", "AZERI", "BABAR", "BAGRE", "BANHO",
-             "BARCO", "BICHO", "BOLOR", "BRASA", "BRAVA", "BRISA", "BRUTO", "BULIR", "CAIXA", "CANSA",
-             "CHATO", "CHAVE", "CHEFE", "CHORO", "CHULO", "CLARO", "COBRE", "CORTE", "CURAR", "DEIXO",
-             "DIZER", "DOGMA", "DORES", "DUQUE", "ENFIM", "ESTOU", "EXAME", "FALAR", "FARDO", "FARTO",
-             "FATAL", "FELIZ", "FICAR", "FOGUE", "FORCA", "FORNO", "FRACO", "FUGIR", "FUNDO", "FURIA",
-             "GAITA", "GASTO", "GEADA", "GELAR", "GOSTO", "GRITO", "GUETO", "HONRA", "HUMOR", "IDADE",
-             "IDEIA", "IDOLO", "IGUAL", "IMUNE", "INDIO", "INGUA", "IRADO", "ISOLA", "JANTA", "JOVEM",
-             "JUIZO", "LARGO", "LASER", "LEITE", "LENTO", "LERDO", "LEVAR", "LIDAR", "LINDO", "LIRO",
-             "LONGE", "LUZES", "MAGRO", "MAIOR", "MALTE", "MAMAR", "MANTO", "MARCA", "MATAR", "MEIGO",
-             "MEIOS", "MELAO", "MESMO", "METRO", "MIMOS", "MOEDA", "MOITA", "MOLHO", "MORNO", "MORRO",
-             "MOTIM", "MUITO", "MURAL", "NAIPE", "NASCI", "NATAL", "NAVAL", "NINAR", "NIVEL", "NOBRE",
-             "NOITE", "NORTE", "NUVEM", "OESTE", "OMBRO", "ORDEM", "ORGAO", "OSSEO", "OSSOS", "OUTRO",
-             "OUVIR", "PALMA", "PARDO", "PASSE", "PATIO", "PEITO", "PELOS", "PERDO", "PERIL", "PERTO",
-             "PEZAR", "PIANO", "PICAR", "PILAR", "PINGO", "PIONE", "PISTA", "PODER", "POREM", "PRADO",
-             "PRATO", "PRAZO", "PRECO", "PRIMA", "PRIMO", "PULAR", "QUERO", "QUOTA", "RAIVA", "RAMPA",
-             "RANGO", "REAIS", "REINO", "REZAR"
-            };
 
+            string caminho = @"C:\Users\gabri\Desktop\Academia do Progamador\Termoo.WinApp\Termoo.WinApp\Palavras.txt";
+            string arquivo = File.ReadAllText(caminho);
+            string[] palavras = arquivo.Split("\r\n");
+           
             int indiceAleatorio = new Random().Next(palavras.Length);
 
             return palavras[indiceAleatorio];
@@ -52,5 +39,22 @@ namespace Termoo.WinApp {
                 palpiteAnalise[4] == palavraSecreta[4]) return true;
             else return false;
         }
+
+        public bool VerificarSePalavraExiste(char[] letras) {
+            string caminho = @"C:\Users\gabri\Desktop\Academia do Progamador\Termoo.WinApp\Termoo.WinApp\Palavras.txt";
+            string arquivo = File.ReadAllText(caminho);
+            string[] palavras = arquivo.Split("\r\n");
+
+            string palavra = new string(letras);
+
+            if (palavras.Contains(palavra)) return true; else return false;
+
+        }
+
+        
+
+        
+
+
     }
 }

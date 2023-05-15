@@ -39,10 +39,10 @@ namespace Termoo.WinApp {
         }
 
         private void ConfirmarPalpite(object? sender, EventArgs e) {
-            if (TodasLetrasImputadas()) { // verificação para só enviar quando estiver a palavra completa
+            if (TodasLetrasImputadas() && jogo.VerificarSePalavraExiste(palpiteAnalise)) { // verificação para só enviar quando estiver a palavra completa
 
                 TableLayoutPanel linha = SelecionarLinha(posicaoLinha);
-                linha.Enabled = false;
+                
 
                 for (int i = 0; i < 5; i++) {  //passa para letra por letra para a classe do jogo analisar
                     TextBox txtBox = SelecionarTxtBox(i, linha);
@@ -52,6 +52,8 @@ namespace Termoo.WinApp {
 
                 AnalisarResultado();
 
+            } else {
+                MessageBox.Show("Palavra incompleta ou inexistente!");
             }
         }
 
@@ -86,7 +88,7 @@ namespace Termoo.WinApp {
             switch (resultado) {
                 
                 case 0: txtBox.BackColor = Color.Black;  //Preto = não tem a letra na palavara
-                        botao.Enabled = false;
+                        botao.BackColor = Color.Black;
                         break; 
                     
                 case 1: txtBox.BackColor = Color.FromArgb(211, 173, 105); //Laranja = Letra na posição errada
