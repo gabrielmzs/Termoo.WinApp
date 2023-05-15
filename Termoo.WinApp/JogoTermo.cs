@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 namespace Termoo.WinApp {
     public class JogoTermo {
         public string palpite;
-         string palavraSecreta = ObterPalavraSecreta();
-        
-        
+         string palavraSecreta = ObterPalavraSecreta();        
 
         internal int AnalisarPalpite(string text,int posicao) {
             char letra = text[0];

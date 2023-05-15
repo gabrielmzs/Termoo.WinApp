@@ -42,18 +42,23 @@ namespace Termoo.WinApp {
             if (TodasLetrasImputadas() && jogo.VerificarSePalavraExiste(palpiteAnalise)) { // verificação para só enviar quando estiver a palavra completa
 
                 TableLayoutPanel linha = SelecionarLinha(posicaoLinha);
-                
 
                 for (int i = 0; i < 5; i++) {  //passa para letra por letra para a classe do jogo analisar
                     TextBox txtBox = SelecionarTxtBox(i, linha);
                     int resultado = jogo.AnalisarPalpite(txtBox.Text, i);
                     DarDicas(txtBox, resultado);
                 }
-
                 AnalisarResultado();
 
-            } else {
-                MessageBox.Show("Palavra incompleta ou inexistente!");
+            } 
+            else if(!TodasLetrasImputadas()) {
+                
+                MessageBox.Show("A palavra está incompleta, apague e tente novamente!", "ERROU!",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                
+            }
+            else if (!jogo.VerificarSePalavraExiste(palpiteAnalise)) {
+                MessageBox.Show("Essa palavra não existe, apague e tente novamente!", "ERROU!");
+                
             }
         }
 
